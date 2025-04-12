@@ -22,13 +22,16 @@ sudo systemctl status nginx
 ```
 
 ## 2. Crear el directorio de la aplicación y clonar el repositorio
-
 Crea el directorio para la aplicación Flask y clona el repositorio:
 
 ```bash
 sudo mkdir -p /opt/flask_app
 sudo chown ec2-user:ec2-user /opt/flask_app
 cd /opt/flask_app
+```
+Instala git en la ec2 para Amazon Linux / Amazon Linux 2
+```bash
+sudo yum install git -y
 ```
 
 Clona tu repositorio desde GitHub o GitLab (reemplaza la URL con la de tu proyecto):
@@ -217,34 +220,7 @@ sudo dnf install mysql-community-server --nogpgcheck -y
 sudo mysql -u admin -p -h database-1.c5ksy2okacbh.us-east-2.rds.amazonaws.com
 ```
 
-## 10. cerificado autofirmado
-```bash
-sudo mkdir -p /etc/nginx/ssl
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-  -keyout /etc/nginx/ssl/nginx-selfsigned.key \
-  -out /etc/nginx/ssl/nginx-selfsigned.crt
-```
-
-```server {
-    listen 443 ssl;
-    server_name 54.224.134.84;  # Reemplaza con tu dirección IPv4 o dominio
-
-    ssl_certificate /etc/nginx/ssl/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/nginx/ssl/nginx-selfsigned.key;
-
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers HIGH:!aNULL:!MD5;
-
-    location / {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-## 11.Pruebas
+## 10.Pruebas
 
 1. Abre un navegador y accede a `http://<tu_IP_pública>` ò `https://<tu_IP_pública>`. Deberías ver el mensaje de la aplicación Flask..
 3. Verifica los servicios en ejecución:
