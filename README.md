@@ -220,7 +220,7 @@ sudo dnf install mysql-community-server --nogpgcheck -y
 sudo mysql -u admin -p -h database-1.c5ksy2okacbh.us-east-2.rds.amazonaws.com
 ```
 
-## 10.Pruebas
+## 9.Pruebas
 
 1. Abre un navegador y accede a `http://<tu_IP_pública>` ò `https://<tu_IP_pública>`. Deberías ver el mensaje de la aplicación Flask..
 3. Verifica los servicios en ejecución:
